@@ -1,0 +1,72 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>::: BabaWeb - Sistema de Integração de Partidas de
+		Futebol :::</title>
+		<h:outputScript name="js/ripple.js" library="ultima-layout" />
+        <h:outputScript name="js/layout.js" library="ultima-layout" />
+</h:head>
+
+<h:body styleClass="login-body">
+	<h:form id="form">
+		<p:growl id="growl" showDetail="true" autoUpdate="true" sticky="true" />
+		<h:panelGroup styleClass="ui-g-7" id="pnlModulo">
+                            <p:selectOneMenu id="pelada" 
+                                         value="#{loginView.usuarioLogado.pelada}" 
+                                         >
+                            <f:selectItem itemLabel="Pelada" itemValue="#{null}"/>
+                            <f:selectItems var="pelada" itemLabel="#{pelada.nome}"  value="#{loginView.novoAmigo.pelada}" itemValue="#{pelada.nome}" />
+                        </p:selectOneMenu>
+                            <label></label>
+                        </h:panelGroup>
+		<div class="ui-g-12">
+			<p:graphicImage name="Futebol-2.png" library="images" />
+		</div>
+		<div class="ui-g-12">
+			<h:panelGroup styleClass="md-inputfield  ui-g-12">
+				<p:inputText widgetVar="txtUsuario" value="#{loginView.novoAmigo.nome}" />
+				<label>Nome</label>
+			</h:panelGroup>
+		</div>
+		<div class="ui-g-12">
+			<h:panelGroup styleClass="md-inputfield ui-g-12">
+				<p:password value="#{loginView.novoAmigo.email}" />
+				<label>E-mail</label>
+			</h:panelGroup>
+		</div>
+<p:panelGrid columns="2" layout="grid" columnClasses="ui-grid-col-10,ui-grid-col-10" styleClass="ui-panelgrid-blank form-group" >
+                    <p:commandButton value="Convidar" action="#{loginView.convidar(null)}" ajax="true" icon="ui-icon-person"></p:commandButton>
+                </p:panelGrid>
+                <p:panelGrid columns="2" layout="grid" columnClasses="ui-grid-col-10,ui-grid-col-10" styleClass="ui-panelgrid-blank form-group" >
+                
+                <p:commandButton value="Voltar"
+					action="dashboard?faces-redirect=true" ajax="true"></p:commandButton>
+			</p:panelGrid>
+	</h:form>
+	<p:ajaxStatus onstart="PF('statusDialog').show()"
+		onsuccess="PF('statusDialog').hide()"
+		style="width:32px;height:32px;position:fixed;right:7px;bottom:7px">
+		<f:facet name="start">
+			<p:dialog widgetVar="statusDialog"
+				style="background-color: transparent;border:none;box-shadow: none;"
+				modal="true" draggable="false" closable="false" resizable="false"
+				showHeader="false">
+				<i class="fa fa-circle-o-notch fa-spin ajax-loader"
+					aria-hidden="true"></i>
+			</p:dialog>
+
+		</f:facet>
+
+		<f:facet name="complete">
+			<h:outputText value="" />
+		</f:facet>
+	</p:ajaxStatus>
+	<div class="login-footer">BabaWeb - Sistema de Integração de
+		Partidas de Futebol</div>
+
+	
+</h:body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <h:head>
+        <link rel="shortcut icon" href="#{resource['images/favicon.ico']}" />
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+            <meta name="theme-color" content="#{guestPreferences.themeColors[guestPreferences.theme]}" />
+            <meta http-equiv="refresh" content="${session.maxInactiveInterval};url=#{request.contextPath}/login.xhtml"/>
+        </f:facet>
+        <title>::: iLab - Sistema de Integração Laboratorial :::</title>
+        <h:outputScript name="js/nanoscroller.js" library="ultima-layout" />
+        <h:outputScript name="js/layout.js" library="ultima-layout" />
+        <h:outputScript name="js/ripple.js" library="ultima-layout" />
+        <h:outputScript name="js/swipe.js" library="ultima-layout" />
+        <h:outputScript name="utils.js" library="js" />
+        <ui:insert name="head"/>
+        <script type="text/javascript">
+            function startDownload() {
+                PF('statusDialog').show();
+            }
+
+            function stopDownload() {
+                PF('statusDialog').hide();
+            }
+            function handleShowDetalhesPedido(xhr, status, args) {
+                if (args.isValid) {
+                    PF('var_dlgDetalhesPedido').show();
+                }
+            }
+        </script>
+
+    </h:head>
+
+    <h:body styleClass="main-body #{guestPreferences.compact ? 'layout-compact' : null}">
+        <f:metadata>
+            <f:event type="preRenderView"   listener="#{applicationControllerView.checarFuncionalidadeAtual()}" /> 
+        </f:metadata>
+
+        <p:ajaxStatus  onstart="PF('statusDialog').show()"  onsuccess="PF('statusDialog').hide()"  style="width:32px;height:32px;position:fixed;right:7px;bottom:7px">
+            <f:facet name="start">
+                <p:dialog widgetVar="statusDialog"  style="background-color: transparent;border:none;box-shadow: none; text-align: center" appendTo="@(body)"  modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                    <i class="fa fa-circle-o-notch fa-spin ajax-loader" aria-hidden="true"></i>
+                    <p>Aguarde...</p>
+                </p:dialog>
+
+            </f:facet>
+
+            <f:facet name="complete">
+                <h:outputText value="" />
+            </f:facet>
+        </p:ajaxStatus>
+        <div class="layout-wrapper #{guestPreferences.menuLayout}">
+            <h:form >
+                <ui:include src="./topbar.xhtml" />
+            </h:form>
+            <c:if test="#{loginView.usuarioLogado!=null}">
+                <ui:include src="./menu.xhtml" />
+            </c:if>
+            <div class="layout-main">
+                <h:form id="form">
+                    <div class="ui-g ui-fluid">
+                        <div class="ui-g-12">
+                            <div  class="card">
+
+                                <p:outputPanel id="content">
+                                    <p:breadCrumb style="margin-bottom: 10px" rendered="#{applicationControllerView.mapFuncionalidade!=null?true:false}">
+                                        <p:menuitem value="Home" title="Home" url="#" />
+                                        <c:forEach items="#{applicationControllerView.mapFuncionalidade}" var="funcionalidade">
+                                            <p:menuitem value="#{funcionalidade.key}" url="#{funcionalidade.value eq null ?'#': funcionalidade.value}" />
+                                        </c:forEach>
+                                    </p:breadCrumb>
+                                    <p:growl id="messages" showDetail="true" autoUpdate="true"  sticky="true" showSummary="true"  globalOnly="true" />  
+                                    <ui:insert name="content"/>
+                                </p:outputPanel>
+                            </div>
+                        </div>
+                    </div>
+
+                    <ui:include src="./footer.xhtml" />
+                </h:form>
+            </div>
+        </div>
+
+
+
+        <h:outputStylesheet name="css/nanoscroller.css" library="ultima-layout" />
+        <h:outputStylesheet name="css/animate.css" library="ultima-layout" />
+        <h:outputStylesheet name="css/ripple.css" library="ultima-layout" />
+        <h:outputStylesheet name="css/style.css" library="ilab" />
+        <h:outputStylesheet name="css/layout-#{guestPreferences.theme}.css" library="ultima-layout" />
+    </h:body>
+
+</html>

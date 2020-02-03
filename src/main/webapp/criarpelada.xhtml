@@ -1,0 +1,49 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+</h:head>
+
+<h:body>
+	<h:form id="form">
+		<p:growl id="growl" showDetail="true" autoUpdate="true" sticky="true" />
+		<div class="ui-g-12">
+			<p:graphicImage name="Futebol-2.png" library="images" />
+		</div>
+		<div class="ui-g-12">
+			<h:panelGroup styleClass="md-inputfield  ui-g-12">
+				<p:inputText widgetVar="txtUsuario" value="#{loginView.novaPelada.nome}" />
+				<label>Pelada</label>
+			</h:panelGroup>
+		</div>
+		<div class="ui-g-12">
+			<h:panelGroup styleClass="md-inputfield ui-g-12">
+				<p:inputText widgetVar="txtUsuario" value="#{loginView.novaPelada.local}" />
+				<label>Local</label>
+			</h:panelGroup>
+		</div>
+		<div class="ui-g-12">
+		<h:panelGroup styleClass="md-inputfield ui-g-12">
+			<p:inputText widgetVar="txtUsuario" value="#{loginView.novaPelada.data}" mask="99/99/9999" />
+			<label>Data</label>
+		</h:panelGroup>
+		</div>
+		<div class="ui-g-12">
+		
+		</div>
+		<p:panelGrid columns="2" layout="grid"
+			columnClasses="ui-grid-col-10,ui-grid-col-10"
+			styleClass="ui-panelgrid-blank form-group">
+			<p:commandButton value="Criar Pelada"
+				action="#{loginView.cadastrarPelada(null)}" ajax="true" ></p:commandButton>
+		</p:panelGrid>
+		<p:panelGrid columns="2" layout="grid" columnClasses="ui-grid-col-10,ui-grid-col-10" styleClass="ui-panelgrid-blank form-group" >
+                
+                <p:commandButton value="Voltar"
+					action="dashboard?faces-redirect=true" ajax="true"></p:commandButton>
+			</p:panelGrid>
+	</h:form>
+</h:body>
+</html>

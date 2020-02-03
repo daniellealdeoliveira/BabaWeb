@@ -1,0 +1,124 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pu="http://primefaces.org/ultima"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <h:form id="menuform"> 
+        <div class="layout-menu #{guestPreferences.menuClass}">
+            <div class="nano">
+                <div class="nano-content menu-scroll-content">
+                    <ui:fragment rendered="#{guestPreferences.profileMode == 'inline' and guestPreferences.menuLayout != 'menu-layout-static menu-layout-horizontal'}">
+                        <div class="profile">
+                            <div class="profile-image"></div>
+                            <a id="profile-options" href="#">
+                                <span class="profile-name">#{loginView.usuarioLogado.nmUsuario}<br/><small>Módulo: #{loginView.nomModuloAcesso}</small></span>
+                                <i class="material-icons">&#xE313;</i>
+                            </a>
+
+                        </div>
+
+                        <ul id="profile-menu" class="ultima-menu">
+                            <li role="menuitem">
+                                <p:link outcome="/modulos/geral/usuario/alterar-senha.xhtml" class="ripplelink">
+                                    <i class="material-icons">&#xE8B9;</i>
+                                    <span>Alterar Senha</span>
+                                </p:link>
+                            </li>
+                            <li role="menuitem">
+                                <p:link outcome="/login.xhtml?action=logout" class="ripplelink">
+                                    <i class="material-icons">&#xE8AC;</i>
+                                    <span>Sair</span>
+                                </p:link>
+
+                            </li>
+                        </ul>
+                    </ui:fragment>
+                    <c:if test="#{loginView.tipoAcesso == 1}">
+                        <pu:menu widgetVar="me">
+                            <p:menuitem  value="Dashboard" icon="&#xE871;"  ajax="true" process="@this"  outcome="/modulos/atendimento/dashboard"/>
+                            <p:submenu  label="Informações de Exames" icon="&#xE8B6;" >
+                                <p:menuitem value="Manual de Exames" icon="&#xE896;" ajax="true"  process="@this"   outcome="/modulos/geral/informacoes/manual-exame/consulta.xhtml" />
+                                <p:menuitem  value="Material" icon="&#xE896;" ajax="true"   process="@this"   outcome="/modulos/geral/informacoes/material.xhtml" />
+                                <p:menuitem  value="Germes" icon="&#xE896;" ajax="true"  process="@this"    outcome="/modulos/geral/informacoes/germes.xhtml"/>
+                                <p:menuitem value="Antimicrobianos" icon="&#xE896;" ajax="true"  process="@this"    outcome="/modulos/geral/informacoes/antimicrobianos.xhtml"/>
+                            </p:submenu>
+                            <p:menuitem  value="Orçamento de Exames" rendered="#{loginView.usaModuloFinanceiro=='S'?true:false}" icon="&#xE227;"  ajax="true"  process="@this"    outcome="/modulos/financeiro/orcamento/consulta.xhtml" />
+                            <p:menuitem  value="Pedido de Exames" icon="&#xE0BA;"  ajax="true"  process="@this"    outcome="/modulos/atendimento/pedido/consulta.xhtml" />
+                            <p:menuitem  value="Lote de Pedidos" icon="&#xE8F9;"  ajax="true"  process="@this"    outcome="/modulos/atendimento/lote-pedidos/consulta.xhtml" />
+                            <p:menuitem  value="Resultado de Exames" icon="&#xE065;"  ajax="true"  process="@this"    outcome="/modulos/atendimento/resultado/consulta.xhtml" />
+                            <p:submenu  label="Relatórios" icon="&#xE873;" >
+
+                                <p:menuitem  value="Amostras Canceladas" icon="&#xE8AD;" ajax="true"  process="@this"   outcome="/modulos/atendimento/relatorio/amostras-canceladas.xhtml" />
+                                <p:menuitem  value="Pedido de Exames" icon="&#xE8AD;" ajax="true"  process="@this"   outcome="/modulos/atendimento/relatorio/pedido-exame.xhtml" />
+                                <p:menuitem  value="Produção por Usuários" icon="&#xE8AD;" ajax="true"  process="@this"   outcome="/modulos/atendimento/relatorio/producao-usuarios.xhtml" />
+                                <p:menuitem  value="Quantitativo" icon="&#xE8AD;" ajax="true"  process="@this"   outcome="/modulos/atendimento/relatorio/quantitativo.xhtml" />
+                                <p:menuitem  value="Resultados de Exames" icon="&#xE8AD;" ajax="true"   process="@this"   outcome="/modulos/atendimento/relatorio/resultado-exame.xhtml" />
+                                <p:menuitem  value="Relatório de Faturamento" icon="&#xE8AD;" ajax="true"   process="@this"   outcome="/modulos/faturamento/relatorio/faturamento.xhtml" />
+                                <p:menuitem  value="Financeiro" icon="&#xE8AD;" ajax="true" rendered="#{loginView.usaModuloFinanceiro=='S'?true:false}"  process="@this"   outcome="/modulos/financeiro/relatorio/financeiro.xhtml" />
+                            </p:submenu>
+                            <p:submenu  label="Caixa" icon="attach_money" rendered="#{loginView.usaModuloFinanceiro=='S'?true:false}">
+                                <p:menuitem  value="Abrir Caixa" icon="lock_open" ajax="true"   process="@this"   outcome="/modulos/financeiro/movimentacao/verificar-caixa.xhtml" />
+                                <p:menuitem  value="Fechamento de Caixa" icon="&#xE899;" ajax="true"  process="@this"    outcome="/modulos/financeiro/movimentacao/fechamento-caixa.xhtml" />
+                            </p:submenu>
+                            <p:submenu  label="Usuário" icon="&#xE7FB;" >
+                                <p:menuitem value="Pré Cadastro" icon="&#xE7F0;" ajax="true"  process="@this"   outcome="/modulos/atendimento/usuario/pre-cadastro.xhtml" />
+                                <p:menuitem value="Manual" icon="&#xe24d;" ajax="true"  process="@this"   outcome="/modulos/atendimento/usuario/manual-cadastro.xhtml" />
+                            </p:submenu>
+                            <p:submenu  label="Manuais" icon="&#xE415;" >
+                                <p:menuitem  value="Manual de Utilização"  ajax="true"  icon="&#xE415;" process="@this"  outcome="/modulos/geral/informacoes/manual-ilab.xhtml"  />
+                                <p:menuitem  value="Manual de Impressão"  ajax="true"  icon="&#xE415;"  process="@this"  outcome="/modulos/geral/informacoes/manual-impressao.xhtml"  />
+                                <p:menuitem  value="Manual de Integração"  ajax="true"  icon="&#xE415;"  process="@this"  outcome="/modulos/geral/informacoes/manual-integra.xhtml"  />
+                                <p:menuitem  value="Manual de Transporte"  ajax="true"  icon="&#xE415;"  process="@this"  outcome="/modulos/geral/informacoes/manual-transporte.xhtml"  />
+                                <p:menuitem  value="Manual de Webservice"  ajax="true"  icon="&#xE415;"  process="@this"  outcome="/modulos/geral/informacoes/manual-webservice.xhtml"  />
+                            </p:submenu>
+                        </pu:menu>
+                    </c:if>
+                    <c:if test="#{loginView.tipoAcesso == 2}">      
+                        <pu:menu widgetVar="me">
+                            <p:menuitem  value="Dashboard" icon="&#xE871;"  ajax="true" process="@this"   outcome="/modulos/administrador/dashboard"/>
+                            <p:submenu  label="Informações de Exames" icon="&#xE8B6;" >
+                                <p:menuitem value="Manual de Exames" icon="&#xE896;" ajax="true" process="@this"   outcome="/modulos/geral/informacoes/manual-exame/consulta.xhtml" />
+                                <p:menuitem  value="Material" icon="&#xE896;" ajax="true" process="@this"   outcome="/modulos/geral/informacoes/material.xhtml" />
+                                <p:menuitem  value="Germes" icon="&#xE896;" ajax="true" process="@this"   outcome="/modulos/geral/informacoes/germes.xhtml"/>
+                                <p:menuitem value="Antimicrobianos" icon="&#xE896;" ajax="true"  process="@this"  outcome="/modulos/geral/informacoes/antimicrobianos.xhtml"/>
+                            </p:submenu>
+                            <p:submenu  label="Prazo de Exames" icon="&#xE192;" >
+                                <p:menuitem value="Func. de Bancadas" title="Funcionamento de Bancadas" process="@this"  icon="&#xE422;" ajax="true"  outcome="/modulos/administrador/prazos/funcionamento-prazo-bancada/consulta.xhtml" />
+                                <p:menuitem  value="Perfil de Prazo" icon="&#xE422;" ajax="true"  process="@this"  outcome="/modulos/administrador/prazos/perfil-prazo/consulta.xhtml" />
+                                <p:menuitem  value="Config. Prazos de Exames" title="Configuração de Prazos de Exames" icon="&#xE422;" ajax="true" process="@this"   outcome="/modulos/administrador/prazos/prazo-exame/consulta.xhtml"/>
+                            </p:submenu>
+                            <p:menuitem  value="Regra de Lib. Automática" icon="&#xE065;" process="@this"  title="Regra de Liberação Automática"  ajax="true"  outcome="/modulos/administrador/regra-liberacao-automatica/consulta.xhtml" />
+                            <p:menuitem  value="Configuração de Parceiros" icon="&#xE869;" process="@this"  ajax="true"  outcome="/modulos/administrador/configuracao-parceiros/consulta.xhtml" />
+                            <p:menuitem  value="Grupo de E-mail" icon="&#xE886;"  ajax="true" process="@this"  outcome="/modulos/administrador/grupo-email/consulta.xhtml" />
+                            <p:menuitem  value="Perfil de Acesso" icon="&#xE851;"  ajax="true" process="@this"   outcome="/modulos/administrador/perfil-acesso/consulta.xhtml" />
+                            <p:menuitem  value="Usuários" icon="&#xE7FB;"  ajax="true" process="@this"   outcome="/modulos/administrador/usuario/consulta.xhtml" />
+                            <p:menuitem  value="Log" icon="&#xE8B2;"  ajax="true" process="@this"   outcome="/modulos/administrador/lote-pedido-log/error.xhtml"/>
+
+                        </pu:menu>
+                    </c:if>
+
+                    <c:if test="#{loginView.tipoAcesso == 3}">      
+                        <pu:menu widgetVar="me">
+                            <p:menuitem  value="Dashboard" icon="&#xE871;"  ajax="true" process="@this"   outcome="/modulos/financeiro/dashboard"/>
+                            <p:menuitem  value="Orçamento de Exames" rendered="#{loginView.usaModuloFinanceiro=='S'?true:false}" icon="&#xE227;"  ajax="true"  process="@this"    outcome="/modulos/financeiro/orcamento/consulta.xhtml" />
+                            <p:menuitem  value="Formas de Pagamento"  icon="&#xE8A1;"  ajax="true"  process="@this"    outcome="/modulos/financeiro/forma-pagamento/cadastro.xhtml" />
+                            <p:menuitem  value="Caixa"  icon="&#xE30A;"  ajax="true"  process="@this"    outcome="/modulos/financeiro/caixa/consulta.xhtml" />
+                            <p:menuitem  value="Tabela de Preços"  icon="&#xE8D8;"  ajax="true"  process="@this"    outcome="/modulos/financeiro/tabela-preco-exame/consulta.xhtml" />
+                            <p:menuitem  value="Movimentação de Venda"  icon="&#xE85C;"  ajax="true"  process="@this"    outcome="/modulos/financeiro/movimentacao/consulta.xhtml" />
+                            <p:submenu  label="Relatórios" icon="&#xE873;" >
+                                <p:menuitem value="Pedido de Exames" icon="&#xE8AD;" ajax="true"  process="@this"   outcome="/modulos/atendimento/relatorio/pedido-exame.xhtml" />
+                                <p:menuitem  value="Resultados de Exames" icon="&#xE8AD;" ajax="true"   process="@this"   outcome="/modulos/atendimento/relatorio/resultado-exame.xhtml" />
+                                <p:menuitem  value="Financeiro" icon="&#xE8AD;" ajax="true"   process="@this"   outcome="/modulos/financeiro/relatorio/financeiro-report.xhtml" />
+                            </p:submenu>
+
+                        </pu:menu>
+                    </c:if>
+                </div>
+            </div>
+        </div>
+    </h:form>
+</ui:composition>

@@ -1,0 +1,68 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+</h:head>
+<f:metadata>
+	<f:event type="preRenderView" listener="#{loginView.init()}" />
+</f:metadata>
+<h:body>
+<h:form id="form">
+		<p:growl id="growl" showDetail="true" autoUpdate="true" sticky="true" />
+	<p:dataTable var="pelada" value="#{loginView.usuarioLogado.pelada}">
+		<p:column headerText="Pelada">
+			<h:outputText value="#{pelada.nome}" />
+		</p:column>
+
+		<p:column headerText="Data">
+			<h:outputText value="#{pelada.data}" />
+		</p:column>
+
+		<p:column headerText="Hora">
+			<h:outputText value="teste" />
+		</p:column>
+
+		<p:column headerText="Local">
+			<h:outputText value="#{pelada.local}" />
+		</p:column>
+		
+	</p:dataTable>
+	<p:panelGrid columns="2" layout="grid"
+				columnClasses="ui-grid-col-10,ui-grid-col-10"
+				styleClass="ui-panelgrid-blank form-group">
+				<p:commandButton value="Convidar Amigo"
+					action="convidar?faces-redirect=true" ajax="true"></p:commandButton>
+			</p:panelGrid>
+			<p:panelGrid columns="2" layout="grid"
+				columnClasses="ui-grid-col-10,ui-grid-col-10"
+				styleClass="ui-panelgrid-blank form-group">
+				<p:commandButton value="Criar Pelada"
+					action="criarpelada?faces-redirect=true" ajax="true"></p:commandButton>
+			</p:panelGrid>
+</h:form>
+	<p:ajaxStatus onstart="PF('statusDialog').show()"
+		onsuccess="PF('statusDialog').hide()"
+		style="width:32px;height:32px;position:fixed;right:7px;bottom:7px">
+		<f:facet name="start">
+			<p:dialog widgetVar="statusDialog"
+				style="background-color: transparent;border:none;box-shadow: none;"
+				modal="true" draggable="false" closable="false" resizable="false"
+				showHeader="false">
+				<i class="fa fa-circle-o-notch fa-spin ajax-loader"
+					aria-hidden="true"></i>
+			</p:dialog>
+
+		</f:facet>
+
+		<f:facet name="complete">
+			<h:outputText value="" />
+		</f:facet>
+	</p:ajaxStatus>
+	<div class="login-footer">BabaWeb - Sistema de Integração de
+		Partidas de Futebol</div>
+
+	
+</h:body>
+</html>

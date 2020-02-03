@@ -1,0 +1,51 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+     
+    <h:head>
+    </h:head>
+ 
+    <h:body>
+        <h:form id="form">
+		<p:growl id="growl" showDetail="true" autoUpdate="true" sticky="true" />
+		<div class="ui-g-12">
+			<p:graphicImage name="Futebol-2.png" library="images" />
+		</div>
+		
+		<div class="ui-g-12">
+			<h:panelGroup styleClass="md-inputfield  ui-g-12">
+				<p:inputText  value="#{loginView.novoUsuario.nome}" />
+				<label>Nome</label>
+			</h:panelGroup>
+		</div>
+		<div class="ui-g-12">
+			<h:panelGroup styleClass="md-inputfield  ui-g-12">
+				<p:inputText  value="#{loginView.novoUsuario.apelido}" />
+				<label>Apelido</label>
+			</h:panelGroup>
+		</div>
+		<div class="ui-g-12">
+			<h:panelGroup styleClass="md-inputfield  ui-g-12">
+				<p:inputText  value="#{loginView.novoUsuario.email}" />
+				<label>E-mail</label>
+			</h:panelGroup>
+		</div>
+		<div class="ui-g-12">
+			<h:panelGroup styleClass="md-inputfield ui-g-12">
+				<p:password value="#{loginView.novoUsuario.senha}" />
+				<label>Senha</label>
+			</h:panelGroup>
+		</div>
+<p:panelGrid columns="2" layout="grid" columnClasses="ui-grid-col-10,ui-grid-col-10" styleClass="ui-panelgrid-blank form-group" >
+                    <p:commandButton value="Cadastrar" action="#{loginView.cadastrar(null)}" ajax="true" icon="ui-icon-person"></p:commandButton>
+                   
+                </p:panelGrid>
+                <p:panelGrid columns="2" layout="grid" columnClasses="ui-grid-col-10,ui-grid-col-10" styleClass="ui-panelgrid-blank form-group" >
+                
+                <p:commandButton value="Voltar"
+					action="login?faces-redirect=true" ajax="true"></p:commandButton>
+			</p:panelGrid>
+	</h:form>
+    </h:body>
+</html>
